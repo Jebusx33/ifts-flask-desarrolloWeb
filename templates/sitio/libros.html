@@ -1,0 +1,23 @@
+{% include 'sitio/cabecera.html'%}
+<br>
+<div id="lista-productos" class="container mb-5">
+    <hr class=" mt-5">
+    <h1 id="encabezado" class="encabezado colotTituloProducto" >Libros</h1>
+<hr>
+<div class="row row-cols-3 row-cols-md-1 g-2">
+    {% for libro in libros %}
+    <div class="col">
+        <div class="four columns">
+            <div class="card">
+                <img  src="{{ url_for('imagenes', imagen=libro['imagen']) }}" alt="{{ libro['titulo'] }}" class="imagen-curso u-full-width">
+                <div class="info-card">
+                    <h4>{{ libro['titulo'] }}</h4>
+                   <a href="{{ libro['descripcion'] }}" class="u-full-width btn btn-lg btn-primary input agregar-carrito" data-id="1">Descarga</a>
+                </div>
+            </div> <!--.card-->
+        </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% include 'sitio/pie.html'%}

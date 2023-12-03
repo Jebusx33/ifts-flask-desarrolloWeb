@@ -1,0 +1,199 @@
+{% include 'admin/cabecera.html'%}
+<br>
+<div class="row mt-5 ">
+    <div class="col-md-5">
+        <div class="card">
+            <div class="card-header">
+                Registro del producto
+            </div>
+            <div class="card-body">
+                <form action="/admin/productos/guardar" method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="txtNombre" class="form-label">Nombre del Producto:</label>
+                        <input type="text" class="form-control" name="txtNombre" id="txtNombre" aria-describedby="helpId"
+                            placeholder="Escriba el nombre del producto" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="txtCategoria" class="form-label">Categoría del Producto:</label>
+                        <select class="form-select" name="txtCategoria" id="txtCategoria" required>
+                            <option value="Consolas">Consolas</option>
+                            <option value="Celulares">Celulares</option>
+                            <option value="Tablets">Tablets</option>
+                            <option value="Televisores">Televisores</option>
+                            <option value="Auriculares">Auriculares</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="txtImagen" class="form-label">Imagen:</label>
+                        <input type="file" class="form-control" name="txtImagen" id="txtImagen" aria-describedby="helpId"
+                            placeholder="Seleccione la imagen" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="txtDescripcion" class="form-label">Descripción:</label>
+                        <input type="text" class="form-control" name="txtDescripcion" id="txtDescripcion"
+                            aria-describedby="helpId" placeholder="Escriba la descripción del producto" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="txtPrecio" class="form-label">Precio:</label>
+                        <input type="text" class="form-control" name="txtPrecio" id="txtPrecio" aria-describedby="helpId"
+                            placeholder="Escriba el precio del producto" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Agregar</button>
+                </form>
+            </div>
+            <div class="card-footer text-muted">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-7">
+        <div class="table-responsive-sm">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">categoria</th>
+                        <th scope="col">Imagen</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for producto in productos %}
+                    <tr class="table-primary">
+                        <td scope="row">{{ producto.id }}</td>
+                        <td>{{ producto.nombre }}</td>
+                        <td>{{ producto.categoria }}</td>
+                        <td>
+                            <img width="60" src="/img/{{ producto.imagen }}" class="img-fluid rounded-top" alt="">
+                            <br>
+                            {{ producto.imagen }}
+                        </td>
+                        <td>{{ producto.descripcion }}</td>
+                        <td>{{ producto.precio }}</td>
+                        <td>
+                            <form method="POST" action="{{ url_for('admin_productos_borrar') }}">
+                                <input type="hidden" name="producto_id" value="{{ producto.id }}">
+                                <button type="submit" class="btn btn-sm btn-danger">Borrar Producto</button>
+                            </form>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal{{ producto.id }}" tabindex="-1"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Producto</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!-- Card editor -->
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    Datos del producto
+                                                </div>
+                                                <div class="card-body">
+                                                    <!-- Agrega el formulario de edición aquí -->
+                                                    <form action="/admin/productos/editar" method="post"
+                                                        enctype="multipart/form-data">
+                                                        <div class="mb-3">
+                                                            <label for="producto_id" class="form-label">ID del Producto
+                                                                a Editar:</label>
+                                                            <input type="text" class="form-control" name="producto_id"
+                                                                id="producto_id"
+                                                                placeholder="Ingrese el ID del producto a editar"
+                                                                value="{{ producto.id }}" readonly>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="nuevo_nombre" class="form-label">Nuevo
+                                                                Nombre:</label>
+                                                            <input type="text" class="form-control" name="nuevo_nombre"
+                                                                id="nuevo_nombre"
+                                                                placeholder="Ingrese el nuevo nombre del producto"
+                                                                value="{{ producto.nombre }}" required>
+                                                        </div>
+                                                     <!--
+                                                        <div class="mb-3">
+                                                            <label for="nuevo_categoria" class="form-label">Nuevo
+                                                                Categoria:</label>
+                                                            <input type="text" class="form-control" name="nuevo_categoria"
+                                                                id="nuevo_categoria"
+                                                                placeholder="Ingrese el nueva categoria del producto"
+                                                                value="{{ producto.categoria }}" required>
+                                                        </div>
+                                                        -->
+                                                      
+                                                        <!--
+                                                        <div class="mb-3">
+                                                            <label for="nueva_imagen" class="form-label">Nueva
+                                                                Imagen:</label>
+                                                            <input type="file" class="form-control" name="nueva_imagen"
+                                                                id="nueva_imagen"
+                                                                placeholder="Ingrese la nueva imagen del producto"
+                                                                required>
+                                                        </div>
+                                                    -->
+                                                    <div class="mb-3">
+                                                        <label for="nuevo_categoria" class="form-label">Nuevo Categoría:</label>
+                                                        <select class="form-select" name="nuevo_categoria" id="nuevo_categoria" required>
+                                                            <option value="Consolas" {% if producto.categoria == 'Consolas' %}selected{% endif %}>Consolas</option>
+                                                            <option value="Celulares" {% if producto.categoria == 'Celulares' %}selected{% endif %}>Celulares</option>
+                                                            <option value="Tablets" {% if producto.categoria == 'Tablets' %}selected{% endif %}>Tablets</option>
+                                                            <option value="Televisores" {% if producto.categoria == 'Televisores' %}selected{% endif %}>Televisores</option>
+                                                            <option value="Auriculares" {% if producto.categoria == 'Auriculares' %}selected{% endif %}>Auriculares</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="nueva_imagen" class="form-label">Nueva Imagen:</label>
+                                                        <input type="file" class="form-control" name="nueva_imagen" id="nueva_imagen" required>
+                                                    </div>
+                                                        <div class="mb-3">
+                                                            <label for="nueva_descripcion" class="form-label">Nueva
+                                                                Descripción:</label>
+                                                            <input type="text" class="form-control"
+                                                                name="nueva_descripcion" id="nueva_descripcion"
+                                                                placeholder="Ingrese la nueva descripción del producto"
+                                                                value="{{ producto.descripcion }}" required>
+                                                        </div>
+                                                        <div class="mb-3 ">
+                                                            <label for="nuevo_precio" class="form-label">Nuevo
+                                                                Precio:</label>
+                                                            <input type="text" class="form-control" name="nuevo_precio"
+                                                                id="nuevo_precio"
+                                                                placeholder="Ingrese el nuevo precio del producto"
+                                                                value="{{ producto.precio }}" required>
+                                                        </div>
+                                                        <button type="submit" class="btn btn-warning">Editar Producto
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                                <div class="card-footer text-muted">
+                                                </div>
+                                            </div>
+                                            <!-- Fin editor -->
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Fin Modal -->
+                            <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal{{ producto.id }}">
+                                Editar Producto
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<br>
+
+{% include 'admin/pie.html'%}

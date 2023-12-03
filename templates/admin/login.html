@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Login del Admin</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+<style>
+    body {
+    background: rgb(51,183,226);
+background: linear-gradient(90deg, rgba(51,183,226,1) 0%, rgba(117,89,167,1) 50%, rgba(231,83,32,1) 100%);
+}
+.card{
+margin-top: 5rem;
+}
+.card:hover{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.card-header{
+    text-align: center;
+    text-shadow: 0px 5px 5px rgba(65,64,64,0.41);
+}
+</style>
+</head>
+
+<body>
+    <header>
+        <!-- place navbar here -->
+        <div class="navbar navbar-expand-lg fixed-top bg-primary mb-5" data-bs-theme="dark" bis_skin_checked="1">
+            <div class="container" bis_skin_checked="1">
+              <a class="navbar-brand MarcaTienda" href="/">Tienda Online</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse mx-3" id="navbarResponsive" bis_skin_checked="1">
+                <ul class="navbar-nav">
+                  
+                  <li class="nav-item">
+                    <a class="nav-link" href="/">Inicio</a>
+                  </li>
+                                  
+                </ul>
+              
+              </div>
+            </div>
+          </div>
+          <br>
+    </header>
+    <br>
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <br>
+                    <div class="card">
+                        <div class="card-header">
+                            Inicio de sesión
+                        </div>
+                        <div class="card-body">
+                            <form action="/admin/login" method="post">
+                                <div class="mb-3">
+                                    <label for="txtUsuario" class="form-label">Usuario:</label>
+                                    <input type="text" class="form-control" name="txtUsuario" id="txtUsuario"
+                                        aria-describedby="helpId" placeholder="Escriba su usuario" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="txtPassword" class="form-label">Contraseña:</label>
+                                    <input type="password" class="form-control" name="txtPassword" id="txtPassword"
+                                        aria-describedby="helpId" placeholder="Escriba su contraseña" required>
+                                </div>
+
+                                <button type="submit" class="btn btn-success">Ingresar</button>
+
+                            </form>
+                        </div>
+                        <div class="card-footer text-muted">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <!-- place footer here -->
+    </footer>
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+        integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,129 @@
+{% include 'admin/cabecera.html'%}
+<br>
+<div class="row mt-5">
+    <div class="col-md-5">
+       <div class="card">
+        <div class="card-header">
+            Registro de Usuario
+        </div>
+        <div class="card-body">
+            <form action="/admin/usuarios/guardar" method="POST">
+                <div class="mb-3">
+                  <label for="txtNombre" class="form-label">Nombre del Usuario:</label>
+                  <input type="text"
+                    class="form-control" name="txtNombre" id="txtNombre" placeholder="Escriba el nombre del usuario" required>
+                </div>
+                <div class="mb-3">
+                  <label for="txtDireccion" class="form-label">Dirección:</label>
+                  <input type="text"
+                    class="form-control" name="txtDireccion" id="txtDireccion" placeholder="Escriba la dirección" required>
+                </div>
+                <div class="mb-3">
+                  <label for="txtMail" class="form-label">Correo Electrónico:</label>
+                  <input type="text"
+                    class="form-control" name="txtMail" id="txtMail" placeholder="Escriba el correo electrónico" required>
+                </div>
+                <div class="mb-3">
+                  <label for="txtUsuario" class="form-label">Nombre de Usuario:</label>
+                  <input type="text"
+                    class="form-control" name="txtUsuario" id="txtUsuario" placeholder="Escriba el nombre de usuario" required>
+                </div>
+                <div class="mb-3">
+                  <label for="txtContrasena" class="form-label">Contraseña:</label>
+                  <input type="password"
+                    class="form-control" name="txtContrasena" id="txtContrasena" placeholder="Escriba la contraseña" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Agregar</button>
+            </form>
+        </div>
+        <div class="card-footer text-muted">
+           
+        </div>
+       </div>
+    </div>
+    <div class="col-md-7">
+        <div class="table-responsive-sm">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Dirección</th>
+                        <th scope="col">Correo Electrónico</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for usuario in usuarios %}
+                    <tr class="table-primary">
+                        <td scope="row">{{usuario.id}}</td>
+                        <td>{{usuario.nombre}}</td>
+                        <td>{{usuario.direccion}}</td>
+                        <td>{{usuario.mail}}</td>
+                        <td>
+                            <form method="POST" action="{{ url_for('admin_usuarios_borrar') }}">
+                                <input type="hidden" name="usuario_id" value="{{ usuario.id }}">
+                                <button type="submit" class="btn btn-sm btn-danger">Borrar Usuario</button>
+                            </form>
+
+                            <!-- Agrega el botón para editar aquí -->
+                            <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editarUsuario{{ usuario.id }}">
+                                Editar Usuario
+                            </button>
+
+                            <!-- Modal de edición -->
+                            <div class="modal fade" id="editarUsuario{{ usuario.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Usuario</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!-- Agrega el formulario de edición aquí -->
+                                            <form action="/admin/usuarios/editar" method="POST">
+                                                <div class="mb-3">
+                                                    <label for="usuario_id" class="form-label">ID del Usuario a Editar:</label>
+                                                    <input type="text" class="form-control" name="usuario_id" value="{{ usuario.id }}" readonly>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="nuevo_nombre" class="form-label">Nuevo Nombre:</label>
+                                                    <input type="text" class="form-control" name="nuevo_nombre" value="{{ usuario.nombre }}">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="nueva_direccion" class="form-label">Nueva Dirección:</label>
+                                                    <input type="text" class="form-control" name="nueva_direccion" value="{{ usuario.direccion }}">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="nuevo_mail" class="form-label">Nuevo Correo Electrónico:</label>
+                                                    <input type="text" class="form-control" name="nuevo_mail" value="{{ usuario.mail }}">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="nuevo_usuario" class="form-label">Nuevo Nombre de Usuario:</label>
+                                                    <input type="text" class="form-control" name="nuevo_usuario" value="{{ usuario.usuario }}">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="nueva_contrasena" class="form-label">Nueva Contraseña:</label>
+                                                    <input type="password" class="form-control" name="nueva_contrasena" required>
+                                                </div>
+                                                <button type="submit" class="btn btn-warning">Editar Usuario</button>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<br>
+
+
+{% include 'admin/pie.html'%}

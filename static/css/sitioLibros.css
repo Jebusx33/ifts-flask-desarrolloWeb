@@ -1,0 +1,11 @@
+
+
+
+.card-img-fixed {
+    object-fit: cover; /* esto mantendrá la proporción de la imagen y la cubrirá completamente */
+    height: 200px; /* ajusta la altura según tus necesidades */
+}
+
+.card{
+    background: red !important;
+}

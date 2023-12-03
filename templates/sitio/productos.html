@@ -1,0 +1,31 @@
+{% include 'sitio/cabecera.html'%}
+<br>
+<div id="lista-productos" class="container mb-5">
+<hr class=" mt-5">
+<h1 id="encabezado" class="encabezado colotTituloProducto" >Todos los Productos de la tienda</h1>
+<hr>
+<div class="row row-cols-1 row-cols-md-3 g-2">
+    {% for producto in productos %}
+    <div class="four columns">
+        <div class="card">
+            <img  src="{{ url_for('imagenes', imagen=producto['imagen']) }}" class="imagen-curso u-full-width">
+            <div class="info-card">
+                <h4>{{ producto['nombre'] }}</h4>
+                <p>{{ producto['descripcion'] }}</p>
+                <p class="precio">  <span class="u-pull-right precio">Precio: ${{ producto['precio'] }}</span></p>
+                <a href="#" class="u-full-width btn btn-lg btn-primary input agregar-carrito" data-id="1">Agregar Al Carrito</a>
+            </div>
+        </div> <!--.card-->
+    </div>
+    {% endfor %}
+</div> <!--.row-->
+</div>  
+
+
+<!-- Agregar la paginación -->
+<div class="pagination-container">
+  {{ pagination.info }}
+  
+  {{ pagination.links }}
+</div>
+{% include 'sitio/pie.html'%}

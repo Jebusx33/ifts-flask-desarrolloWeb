@@ -1,0 +1,166 @@
+{% include 'sitio/cabecera.html'%}
+<div id="carouselId" class="carousel slide " data-bs-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-bs-target="#carouselId" data-bs-slide-to="0" class="active" aria-current="true" aria-label="First slide"></li>
+      <li data-bs-target="#carouselId" data-bs-slide-to="1" aria-label="Second slide"></li>
+      <li data-bs-target="#carouselId" data-bs-slide-to="2" aria-label="Third slide"></li>
+    </ol>
+    <div class="carousel-inner" role="listbox">
+      <div class="carousel-item active">
+        <img src="{{ url_for('static', filename='img/carousel/01.jpg') }}" class="w-100 d-block" alt="First slide">
+      </div>
+      <div class="carousel-item">
+        <img src="{{ url_for('static', filename='img/carousel/02.jpg') }}" class="w-100 d-block" alt="Second slide">
+      </div>
+      <div class="carousel-item">
+        <img src="{{ url_for('static', filename='img/carousel/03.jpg') }}" class="w-100 d-block" alt="Third slide">
+      </div>
+    </div>
+  </div>
+
+  <div class="barra">
+    <div class="container">
+        <div class="row">
+                <div class="four columns icono icono1 mt-1">
+                    <p>20,000 Productos <br>
+                    Explora  los temas más recientes</p>
+                </div>
+                <div class="four columns icono icono2">
+                    <p>Expertos Electronica <br>
+                    Encontra el mejor Producto</p>
+                </div>
+                <div class="four columns icono icono3">
+                    <p>Mejora tu vida <br>
+                    Busca la mejor Téncologia</p>
+                </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="container">
+
+<br>
+<div id="lista-productos" class="container mb-5">
+<hr class=" mt-5">
+<h1 id="encabezado" class="encabezado colotTituloProducto" >Productos Celulares</h1>
+<hr>
+<div class="row row-cols-1 row-cols-md-3 g-2">
+     {% for producto in productos_celulares %}
+    <div class="four columns">
+        <div class="card">
+            <img  src="{{ url_for('imagenes', imagen=producto['imagen']) }}" class="imagen-curso u-full-width">
+            <div class="info-card">
+                <h4>{{ producto['nombre'] }}</h4>
+                <p>{{ producto['descripcion'] }}</p>
+                <p class="precio">  <span class="u-pull-right precio">Precio: ${{ producto['precio'] }}</span></p>
+                <a href="#" class="u-full-width btn btn-lg btn-primary input agregar-carrito" data-id="1">Agregar Al Carrito</a>
+            </div>
+        </div> <!--.card-->
+    </div>
+    {% endfor %}
+</div> <!--.row-->
+</div>  
+
+
+
+
+<br>
+<div id="lista-productos" class="container mb-5">
+<hr class=" mt-5">
+<h1 id="encabezado" class="encabezado colotTituloProducto" >Productos Consolas</h1>
+<hr>
+<div class="row row-cols-1 row-cols-md-3 g-2">
+     {% for producto in productos_consolas %}
+    <div class="four columns">
+        <div class="card">
+            <img  src="{{ url_for('imagenes', imagen=producto['imagen']) }}" class="imagen-curso u-full-width">
+            <div class="info-card">
+                <h4>{{ producto['nombre'] }}</h4>
+                <p>{{ producto['descripcion'] }}</p>
+                <p class="precio">  <span class="u-pull-right precio">Precio: ${{ producto['precio'] }}</span></p>
+                <a href="#" class="u-full-width btn btn-lg btn-primary input agregar-carrito" data-id="1">Agregar Al Carrito</a>
+            </div>
+        </div> <!--.card-->
+    </div>
+    {% endfor %}
+</div> <!--.row-->
+</div>  
+
+
+
+<br>
+<div id="lista-productos" class="container mb-5">
+<hr class=" mt-5">
+<h1 id="encabezado" class="encabezado colotTituloProducto" >Productos Auriculares</h1>
+<hr>
+<div class="row row-cols-1 row-cols-md-3 g-2">
+     {% for producto in productos_auriculares %}
+    <div class="four columns">
+        <div class="card">
+            <img  src="{{ url_for('imagenes', imagen=producto['imagen']) }}" class="imagen-curso u-full-width">
+            <div class="info-card">
+                <h4>{{ producto['nombre'] }}</h4>
+                <p>{{ producto['descripcion'] }}</p>
+                <p class="precio">  <span class="u-pull-right precio">Precio: ${{ producto['precio'] }}</span></p>
+                <a href="#" class="u-full-width btn btn-lg btn-primary input agregar-carrito" data-id="1">Agregar Al Carrito</a>
+            </div>
+        </div> <!--.card-->
+    </div>
+    {% endfor %}
+</div> <!--.row-->
+</div>  
+
+
+
+<br>
+<div id="lista-productos" class="container mb-5">
+<hr class=" mt-5">
+<h1 id="encabezado" class="encabezado colotTituloProducto" >Productos Televisores</h1>
+<hr>
+<div class="row row-cols-1 row-cols-md-3 g-2">
+     {% for producto in productos_televisores %}
+    <div class="four columns">
+        <div class="card">
+            <img  src="{{ url_for('imagenes', imagen=producto['imagen']) }}" class="imagen-curso u-full-width">
+            <div class="info-card">
+                <h4>{{ producto['nombre'] }}</h4>
+                <p>{{ producto['descripcion'] }}</p>
+                <p class="precio">  <span class="u-pull-right precio">Precio: ${{ producto['precio'] }}</span></p>
+                <a href="#" class="u-full-width btn btn-lg btn-primary input agregar-carrito" data-id="1">Agregar Al Carrito</a>
+            </div>
+        </div> <!--.card-->
+    </div>
+    {% endfor %}
+</div> <!--.row-->
+</div>  
+
+
+<br>
+<div id="lista-productos" class="container mb-5">
+<hr class=" mt-5">
+<h1 id="encabezado" class="encabezado colotTituloProducto" >Todos los Productos de la tienda</h1>
+<hr>
+<div class="row row-cols-1 row-cols-md-3 g-2">
+    {% for producto in productos %}
+    <div class="four columns">
+        <div class="card">
+            <img  src="{{ url_for('imagenes', imagen=producto['imagen']) }}" class="imagen-curso u-full-width">
+            <div class="info-card">
+                <h4>{{ producto['nombre'] }}</h4>
+                <p>{{ producto['descripcion'] }}</p>
+                <p class="precio">  <span class="u-pull-right precio">Precio: ${{ producto['precio'] }}</span></p>
+                <a href="#" class="u-full-width btn btn-lg btn-primary input agregar-carrito" data-id="1">Agregar Al Carrito</a>
+            </div>
+        </div> <!--.card-->
+    </div>
+    {% endfor %}
+</div> <!--.row-->
+</div>  
+
+
+
+</div>
+
+
+{% include 'sitio/pie.html'%}

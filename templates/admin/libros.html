@@ -1,0 +1,290 @@
+{% include 'admin/cabecera.html'%}
+
+<br>
+<div class="row mt-5">
+    <div class="col-md-5">
+        <div class="card">
+            <div class="card-header">
+                Registro del libro
+            </div>
+            <div class="card-body">
+                <form action="/admin/libros/guardar" method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="txtNombre" class="form-label">Nombre del Producto:</label>
+                        <input type="text" class="form-control" name="txtNombre" id="txtNombre"
+                            aria-describedby="helpId" placeholder="Escriba el nombre del producto" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="txtImagen" class="form-label">Imagen:</label>
+                        <input type="file" class="form-control" name="txtImagen" id="txtImagen"
+                            aria-describedby="helpId" placeholder="Seleccione la imagen" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="txtUrl" class="form-label">Url</label>
+                        <input type="text" class="form-control" name="txtUrl" id="txtUrl" aria-describedby="helpId"
+                            placeholder="Escriba la URL de descarga" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Agregar</button>
+                </form>
+            </div>
+            <div class="card-footer text-muted">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-7">
+        <div class="table-responsive-sm">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Imagen</th>
+                        <th scope="col">Url</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for libro in libros %}
+                    <tr class="table-primary">
+                        <td scope="row">{{libro.id}}</td>
+                        <td>{{libro.nombre}}</td>
+                        <td>
+                            <img width="60" src="/img/{{libro.imagen}}" class="img-fluid rounded-top" alt="">
+                            <br>
+                            {{libro.imagen}}
+                        </td>
+                        <td>{{libro.url}}</td>
+                        <td>
+                            <form method="POST" action="{{ url_for('admin_libros_borrar') }}">
+                                <input type="hidden" name="libro_id" value="{{ libro.id }}">
+                                <button type="submit" class="btn btn-sm  btn-danger">Borrar Libro</button>
+                            </form>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal{{ libro.id }}" tabindex="-1"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Libro</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!-- Card editor -->
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    Datos del libro
+                                                </div>
+                                                <div class="card-body">
+                                                    <!-- Agrega el formulario de edición aquí -->
+                                                    <form action="/admin/libros/editar" method="post"
+                                                        enctype="multipart/form-data">
+                                                        <div class="mb-3">
+                                                            <label for="libro_id" class="form-label">ID del Libro a
+                                                                Editar:</label>
+                                                            <input type="text" class="form-control" name="libro_id"
+                                                                id="libro_id"
+                                                                placeholder="Ingrese el ID del libro a editar"
+                                                                value="{{ libro.id }}" readonly>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="nuevo_nombre" class="form-label">Nuevo
+                                                                Nombre:</label>
+                                                            <input type="text" class="form-control" name="nuevo_nombre"
+                                                                id="nuevo_nombre" placeholder="Ingrese el nuevo nombre"
+                                                                value="{{ libro.nombre }}" required>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="nueva_imagen" class="form-label">Nueva
+                                                                Imagen:</label>
+                                                            <input type="file" class="form-control" name="nueva_imagen"
+                                                                id="nueva_imagen" placeholder="Ingrese la imagen nueva"
+                                                                required>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="nuevo_url" class="form-label">Nueva URL:</label>
+                                                            <input type="text" class="form-control" name="nuevo_url"
+                                                                id="nuevo_url" placeholder="Ingrese la nueva URL"
+                                                                value="{{ libro.url }}" required>
+                                                        </div>
+                                                        <button type="submit" class="btn btn-warning">Editar
+                                                            Libro</button>
+                                                    </form>
+                                                </div>
+                                                <div class="card-footer text-muted">
+                                                </div>
+                                            </div>
+                                            <!-- Fin editor -->
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Fin Modal -->
+                            <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal{{ libro.id }}">
+                                Editar Libro
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<br>
+
+
+
+<!--
+<br>
+    <div class="row">
+        <div class="col-md-5">
+           <div class="card">
+            <div class="card-header">
+                Datos del libro
+            </div>
+            <div class="card-body">
+                <form action="/admin/libros/guardar" method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                      <label for="txtNombre" class="form-label">Nombre del Producto:</label>
+                      <input type="text"
+                        class="form-control" name="txtNombre" id="txtNombre" aria-describedby="helpId" placeholder="Escriba el nombre del producto" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="txtImagen" class="form-label">Imagen:</label>
+                      <input type="file"
+                        class="form-control" name="txtImagen" id="txtImagen" aria-describedby="helpId" placeholder="Selecione la imagen" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="txtUrl" class="form-label">Url</label>
+                      <input type="text"
+                        class="form-control" name="txtUrl" id="txtUrl" aria-describedby="helpId" placeholder="Escriba la url de descarga" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Agregar</button>
+                </form>
+            -->
+<!-- Button trigger modal -->
+
+<!--
+            </div>
+            <div class="card-footer text-muted">
+               
+            </div>
+           </div>
+        </div>
+        <div class="col-md-7">
+            <div class="table-responsive-sm">
+                <table class="table table-secondary">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Imagen</th>
+                            <th scope="col">Url</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for libro in libros %}
+                        <tr class="">
+                            <td scope="row">{{libro.id}}</td>
+                            <td>{{libro.nombre}}</td>
+                            <td>
+                                <img width="60" src="/img/{{libro.imagen}}" class="img-fluid rounded-top" alt="">
+                                <br>
+                                {{libro.imagen}}    
+                            </td>
+                            <td>{{libro.url}}</td>
+                            <td>
+                               
+                                <form method="POST" action="{{ url_for('admin_libros_borrar') }}">
+                                    <input type="hidden" name="libro_id" value="{{ libro.id }}">
+                                    <button type="submit" class="btn btn-sm  btn-danger">Borrar Libro</button>
+                                </form>
+                            -->
+
+<!-- Modal -->
+<!--
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Libro</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        -->
+<!--Card editor-->
+
+<!--
+        <div class="card">
+            <div class="card-header">
+                Datos del libro
+            </div>
+            <div class="card-body">
+            -->
+<!-- Agrega el formulario de edición aquí 
+            <form action="/admin/libros/editar" method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="libro_id" class="form-label">ID del Libro a Editar:</label>
+                    <input type="text" class="form-control" name="libro_id" id="libro_id" placeholder="Ingrese el ID del libro a editar" required>
+                </div>
+                <div class="mb-3">
+                    <label for="nuevo_nombre" class="form-label">Nuevo Nombre:</label>
+                    <input type="text" class="form-control" name="nuevo_nombre" id="nuevo_nombre" placeholder="Ingrese el nuevo nombre" required>
+                </div>
+                <div class="mb-3">
+                    <label for="nueva_imagen" class="form-label">Nueva Imagen:</label>
+                    <input type="file" class="form-control" name="nueva_imagen" id="nueva_imagen" placeholder="Ingrese la imagen nueva" required>
+                </div>
+                <div class="mb-3">
+                    <label for="nuevo_url" class="form-label">Nueva URL:</label>
+                    <input type="text" class="form-control" name="nuevo_url" id="nuevo_url" placeholder="Ingrese la nueva URL" required>
+                </div>
+                <button type="submit" class="btn btn-warning" >Editar Libro</button>
+            </form>
+            </div>
+            <div class="card-footer text-muted">
+            </div>
+        </div>
+    -->
+<!--Fin editor
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+                        </tr>
+                       {%endfor%}
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        
+    </div>
+    <br>
+
+
+
+<div class="col-md-4">
+    <div class="card" >
+        <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Editar Libro
+          </button>
+    </div>
+</div>
+-->
+
+{% include 'admin/pie.html'%}
