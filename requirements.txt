@@ -17,7 +17,7 @@ docutils==0.16
 executing==2.0.1
 Flask==3.0.0
 Flask-MySQL==1.5.2
-Flask-MySQLdb==1.0.1
+Flask-MySQLdb==2.0.0
 flask-paginate==2023.10.24
 Flask-SQLAlchemy==3.1.1
 friendly-traceback==0.7.61
